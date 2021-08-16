@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Movie extends StatelessWidget {
-  String movieName;
-  String directorName;
+  final String movieName;
+  final String directorName;
 
   Movie({required this.movieName, required this.directorName});
 

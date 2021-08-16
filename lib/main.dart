@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-import 'addmovie.dart';
-import './movie.dart';
+import 'package:movie_watchlist/homescreen.dart';
+import 'package:movie_watchlist/moviedescription.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+  Hive.registerAdapter(MovieDescriptionAdapter());
+
   runApp(MyApp());
 }
 
@@ -16,31 +23,10 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "Your Watchlist",
       theme: ThemeData(primaryColor: Colors.blue.shade900),
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Your Watchlist'),
-        ),
-        body: ListView(
-          children: [
-            Movie(movieName: "Movie Name", directorName: "Director Name"),
-            Movie(movieName: "Movie Name", directorName: "Director Name"),
-            Movie(movieName: "Movie Name", directorName: "Director Name"),
-            Movie(movieName: "Movie Name", directorName: "Director Name"),
-          ],
-        ),
-        floatingActionButton: Builder(
-          builder: (context) => FloatingActionButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                return AddMovie();
-              }));
-            },
-            child: Icon(Icons.add),
-          ),
-        ),
-      ),
+      home: Homescreen(),
     );
   }
 }
