@@ -5,15 +5,15 @@ import './boxes.dart';
 
 import './moviedescription.dart';
 
-class AddMovie extends StatelessWidget {
+class EditMovie extends StatelessWidget {
   final movieNameController;
   final directorNameController;
-  AddMovie(this.movieNameController, this.directorNameController);
+  EditMovie(this.movieNameController, this.directorNameController);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Movie"),
+        title: Text("Edit Movie"),
       ),
       body: Column(
         children: [
@@ -40,12 +40,14 @@ class _SubmitBtn extends StatelessWidget {
         onPressed: () {
           if (movieNameController.text.length > 0 &&
               directorNameController.text.length > 0) {
-            final movieDescription = MovieDescription(
+            var movieDescription = MovieDescription(
               movieNameController.text,
               directorNameController.text,
             );
+
             final box = Boxes.getMovieDescription();
-            box.add(movieDescription);
+            box.put(movieDescription.key, movieDescription);
+
             movieNameController.clear();
             directorNameController.clear();
             Navigator.pop(context);

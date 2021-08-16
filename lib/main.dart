@@ -9,17 +9,14 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Hive.initFlutter();
+
   Hive.registerAdapter(MovieDescriptionAdapter());
+  await Hive.openBox<MovieDescription>('Movies');
 
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  MyAppState createState() => MyAppState();
-}
-
-class MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
